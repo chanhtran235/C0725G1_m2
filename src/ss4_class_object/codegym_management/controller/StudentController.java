@@ -1,15 +1,15 @@
-package ss4_class_object;
+package ss4_class_object.codegym_management.controller;
 
-import java.util.Arrays;
+import ss4_class_object.codegym_management.entity.Student;
+import ss4_class_object.codegym_management.service.IStudentService;
+import ss4_class_object.codegym_management.service.StudentService;
+import ss4_class_object.codegym_management.view.StudentView;
+
 import java.util.Scanner;
 
-public class Main {
+public class StudentController {
 
-    private static StudentManager studentManager = new StudentManager();
-
-    public static void main(String[] args) {
-        showMenu();
-    }
+    private static IStudentService studentManager = new StudentService();
 
     public static void showMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class Main {
                     "\n 1. Danh sách" +
                     "\n 2. Thêm mới" +
                     "\n 3. Xoá" +
-                    "\n 4. Thoát");
+                    "\n 4. Quay về menu chính");
             System.out.println("--Chọn chức năng---");
             int choose = Integer.parseInt(scanner.nextLine());
             switch (choose) {
@@ -27,22 +27,12 @@ public class Main {
                     System.out.println("Danh sách");
                     Student[] students = studentManager.findAll();
                     // hiển thị
-                    for (int i = 0; i < students.length; i++) {
-                        if (students[i] != null) {
-                            System.out.println(students[i]);
-                        } else {
-                            break;
-                        }
-                    }
+                    StudentView.showList(students);
                     break;
                 case 2:
-                    System.out.println("Thêm mới");
-                    System.out.println("Nhập id");
-                    int id = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Nhập tên");
-                    String name = scanner.nextLine();
-                    Student student = new Student(id, name);
+                    Student student = StudentView.inputDataForStudent();
                     studentManager.add(student);
+                    System.out.println("Thêm mới thành công");
                     break;
                 case 3:
                     System.out.println("Xoá");
