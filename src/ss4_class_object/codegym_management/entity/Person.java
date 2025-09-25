@@ -32,4 +32,5 @@ public abstract class Person {
         return "id: " + this.id +
                 ", name: " +this.name;
     }
+    public abstract String getInfoToSCV();
 }

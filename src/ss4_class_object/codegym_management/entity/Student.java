@@ -1,6 +1,8 @@
 package ss4_class_object.codegym_management.entity;
 
-public class Student extends Person {
+import java.util.Objects;
+
+public class Student extends Person{
     private float score;
     public static String school = "Codegym";
     public Student(){
@@ -29,4 +31,10 @@ public class Student extends Person {
                 ", score :" + score +
                 '}';
     }
+
+    @Override
+    public String getInfoToSCV() {
+        return this.getId()+","+this.getName()+","+this.getScore();
+    }
+
 }

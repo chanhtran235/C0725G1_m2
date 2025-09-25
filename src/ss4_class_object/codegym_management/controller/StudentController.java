@@ -5,11 +5,12 @@ import ss4_class_object.codegym_management.service.IStudentService;
 import ss4_class_object.codegym_management.service.StudentService;
 import ss4_class_object.codegym_management.view.StudentView;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class StudentController {
 
-    private static IStudentService studentManager = new StudentService();
+    private static IStudentService studentService = new StudentService();
 
     public static void showMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -25,17 +26,25 @@ public class StudentController {
             switch (choose) {
                 case 1:
                     System.out.println("Danh sách");
-                    Student[] students = studentManager.findAll();
+                    List<Student> students = studentService.findAll();
                     // hiển thị
                     StudentView.showList(students);
                     break;
                 case 2:
                     Student student = StudentView.inputDataForStudent();
-                    studentManager.add(student);
+                    studentService.add(student);
                     System.out.println("Thêm mới thành công");
                     break;
                 case 3:
                     System.out.println("Xoá");
+                    int deleteId = StudentView.inputId();
+                    boolean isDeleteSuccess = studentService.deleteById(deleteId);
+                    if (isDeleteSuccess){
+                        System.out.println("Xoá thành công");
+                    }else {
+                        System.out.println("Không tìm thấy id");
+                    }
+
                     break;
                 default:
                     flag = false;
